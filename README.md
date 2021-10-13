@@ -7,28 +7,38 @@ Toray S. Akcan, Matthias Heinig
 
 # Folder Structure
 
+# Script Structure
+
+**Transcriptional_Pausing_MAIN.R:** Main script to perform analyses; Uses all other R-script files.
+**data_preprocessing.R:** Functions for preprocessing (parsing) of all data sets for usage.
+**data_processing.R:** Functions for processing of all data sets for downstream analyses.
+**data_analyses.R:** Actual analyses of processed datasets.
+**helper_functions.R:** Generic helper functions.
+
 # Dependencies
-R-version: 4.0.3
+**R-version:** 4.0.3
 
-Bioconductor-Version:
+**Bioconductor-Version:**
 
-CARN-Packages: readr, fastcluster, pvclust, scales, reticulate", parallel, 
-                foreach, doParallel,  LSD, plyr, feather, msigdbr, 
-                 log4r,  plyr, ggplot2, optparse, tools, DBI, 
-                 VennDiagram, bedr, Rcpp, rlang, tidyr,  stringi,
-                 rlang, magrittr, tidyverse, viridis, dplyr, magrittr,
-                 circlize, dynamicTreeCut, h2o, reshape2,
-                 protr, gridExtra, caret, log4r, optparse, 
-                 fitdistrplus, ROCR, reticulate, xgboost, data.table, here,
-                 jsonlite, mclust, igraph, quantreg, stringr, SHAPforxgboost, 
-                 anchors, seqinr, ape, ggpubr, ggforce, reconPlots, cowplot,
-                 ggsci, gridGraphics, WriteXLS
+**CRAN-Packages:** 
+readr, fastcluster, pvclust, scales, reticulate", parallel, 
+foreach, doParallel,  LSD, plyr, feather, msigdbr, 
+log4r,  plyr, ggplot2, optparse, tools, DBI, 
+VennDiagram, bedr, Rcpp, rlang, tidyr,  stringi,
+rlang, magrittr, tidyverse, viridis, dplyr, magrittr,
+circlize, dynamicTreeCut, h2o, reshape2,
+protr, gridExtra, caret, log4r, optparse, 
+fitdistrplus, ROCR, reticulate, xgboost, data.table, here,
+jsonlite, mclust, igraph, quantreg, stringr, SHAPforxgboost, 
+anchors, seqinr, ape, ggpubr, ggforce, reconPlots, cowplot,
+ggsci, gridGraphics, WriteXLS
                  
-Bioconductor-Packages: msa, GenomicFeatures,CAGEr, GenomicRanges, biomaRt,  Biostrings, topGO,  goSTAG,
-                 tracktables, GenomicAlignments, Rsamtools, BSgenome.Hsapiens.UCSC.hg19,
-                 groHMM, HiTC, rtracklayer, RCAS", TFutils, universalmotif, org.Hs.eg.db, GOSim
+**Bioconductor-Packages:** 
+msa, GenomicFeatures,CAGEr, GenomicRanges, biomaRt,  Biostrings, topGO,  goSTAG,
+tracktables, GenomicAlignments, Rsamtools, BSgenome.Hsapiens.UCSC.hg19,
+groHMM, HiTC, rtracklayer, RCAS", TFutils, universalmotif, org.Hs.eg.db, GOSim
                  
-External-Packages: reconPlots
+**External-Packages:** reconPlots
 
 All neccessary packages will be installed automatically upon sourcing "init.R", however system-level dependencies might be required by specific packages.
 
