@@ -55,4 +55,9 @@ All necessary data sets with associated accession numbers are listed in individu
 This git repository is accompanied by a Zenodo repository that hosts relevant data sets available at: **10.5281/zenodo.5236311**
 
 # Script Execution
-
+1) Clone this repository with **git clone https://github.com/heiniglab/POLII_pausing.git**
+2) Specify working directory in Transcriptional_Pausing.R (line 1)
+3) Specify number of available cores for low, average and high load computations (line 9); Defaults are 6, 12, 16 cores respectively
+4) Obtain all relevant data, see previous section **Data Availability**
+5) Run/Source Transcriptional_Pausing.R
+6) All plots will be avaialbe under **src/plots** and resulting R-data strcutures under **results**
