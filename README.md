@@ -9,6 +9,7 @@ Toray S. Akcan, Matthias Heinig
   * [Script Outline](#script-outline)
   * [Dependencies](#dependencies)
   * [Data Availability](#data-availability)
+  * [Computational Requirements](#computational-requirements)
   * [Script Execution](#script-execution)
   * [Key Data Structures](#key-data-structures)
 
@@ -56,6 +57,12 @@ All necessary data sets with associated accession numbers are listed in individu
 
 This git repository is accompanied by a Zenodo repository that hosts relevant data sets available at: **10.5281/zenodo.5236311**
 
+# Computational Requirements
+The following computational resources are recommended to execute the whole script
+
+* 360GB RAM
+* 16 Cores
+
 # Script Execution
 1) Clone this repository with **git clone https://github.com/heiniglab/POLII_pausing.git**
 2) Specify working directory in Transcriptional_Pausing.R (line 2)
@@ -65,3 +72,7 @@ This git repository is accompanied by a Zenodo repository that hosts relevant da
 6) All plots will be avaialbe under **src/plots** and resulting R-data structures under **results**
 
 # Key Data Structures
+* File **/results/feature.vectors.RDS** Contains feature matrices for each cell line
+* File **/results/model.matrices.RDS** contains all matrices for each cell line with features (and feature sub-spaces) and targets to train predictive models
+* File **/results/model.results.RDS** contains all model results (incl. model performance table) obtain by training XGB tree models
+* File **/results/rn7sk.binders.RDS** contains a genomic ranges object of 7SK transcript variants bound by proteins idenfied from eCLIP-seq data for each cell line 
