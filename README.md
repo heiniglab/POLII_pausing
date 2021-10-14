@@ -43,7 +43,7 @@ ggsci, gridGraphics, WriteXLS
 **Bioconductor-Packages:** 
 msa, GenomicFeatures,CAGEr, GenomicRanges, biomaRt,  Biostrings, topGO,  goSTAG,
 tracktables, GenomicAlignments, Rsamtools, BSgenome.Hsapiens.UCSC.hg19,
-groHMM, HiTC, rtracklayer, RCAS", TFutils, universalmotif, org.Hs.eg.db, GOSim
+groHMM, HiTC, rtracklayer, RCAS, TFutils, universalmotif, org.Hs.eg.db, GOSim
                  
 **External-Packages:** reconPlots
 
@@ -54,4 +54,5 @@ All necessary data sets with associated accession numbers are listed in individu
 
 This git repository is accompanied by a Zenodo repository that hosts relevant data sets available at: **10.5281/zenodo.5236311**
 
-# How to run script
+# Script Execution
+
