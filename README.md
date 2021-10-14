@@ -6,14 +6,15 @@ This git repository contains the code accompanying the manuscript
 Toray S. Akcan, Matthias Heinig
 
 ## Table of Contents
-  * [Script Outline](#script-outline)
+  * [Script Overview](#script-overview)
   * [Dependencies](#dependencies)
   * [Data Availability](#data-availability)
   * [Computational Requirements](#computational-requirements)
   * [Script Execution](#script-execution)
   * [Key Data Structures](#key-data-structures)
-
-# Script Outline 
+  * [R Session Info](#r-session-info)
+  
+# Script Overview
 
 **Transcriptional_Pausing_MAIN.R:** Main script to perform analyses; Uses all other R-script files.
 
@@ -50,7 +51,7 @@ groHMM, HiTC, rtracklayer, RCAS, TFutils, universalmotif, org.Hs.eg.db, GOSim
                  
 **External-Packages:** reconPlots
 
-All neccessary packages will be installed automatically upon sourcing "init.R", however system-level dependencies might exist required by specific packages.
+All neccessary packages will be installed automatically upon sourcing "init.R", however system-level dependencies required by specific packages might exist.
 
 # Data Availability
 All necessary data sets with associated accession numbers are listed in individual xlsx-sheets in file **"Data Acessions.xlsx"** located in the resources folder. To increase replicability the data folder structure has been replicated in the "data" folder and each subfolder contains a "README.txt" with detailed steps to obtain relevant data sets pertaining each subfolder. 
@@ -73,6 +74,9 @@ The following computational resources are recommended to execute the whole scrip
 
 # Key Data Structures
 * File **/results/feature.vectors.RDS** Contains feature matrices for each cell line
-* File **/results/model.matrices.RDS** contains all matrices for each cell line with features (and feature sub-spaces) and targets to train predictive models
-* File **/results/model.results.RDS** contains all model results (incl. model performance table) obtain by training XGB tree models
-* File **/results/rn7sk.binders.RDS** contains a genomic ranges object of 7SK transcript variants bound by proteins idenfied from eCLIP-seq data for each cell line 
+* File **/results/model.matrices.RDS** contains matrices with features (and feature sub-spaces) and targets for each cell line to train predictive models
+* File **/results/model.results.RDS** contains all model results (incl. model performance table) obtained by training XGB tree models
+* File **/results/rn7sk.binders.RDS** contains a genomic ranges object of 7SK transcript variants bound by proteins for each cell line idenfied from eCLIP-seq data
+
+# R Session Info
+![R Session info](https://user-images.githubusercontent.com/15715191/137335979-478dca86-5ec5-475c-bd58-79644c9213b7.png)
