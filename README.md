@@ -10,9 +10,13 @@ Toray S. Akcan, Matthias Heinig
 # Script Structure
 
 **Transcriptional_Pausing_MAIN.R:** Main script to perform analyses; Uses all other R-script files.
+
 **data_preprocessing.R:** Functions for preprocessing (parsing) of all data sets for usage.
+
 **data_processing.R:** Functions for processing of all data sets for downstream analyses.
+
 **data_analyses.R:** Actual analyses of processed datasets.
+
 **helper_functions.R:** Generic helper functions.
 
 # Dependencies
@@ -40,7 +44,7 @@ groHMM, HiTC, rtracklayer, RCAS", TFutils, universalmotif, org.Hs.eg.db, GOSim
                  
 **External-Packages:** reconPlots
 
-All neccessary packages will be installed automatically upon sourcing "init.R", however system-level dependencies might be required by specific packages.
+All neccessary packages will be installed automatically upon sourcing "init.R", however system-level dependencies might exist required by specific packages.
 
 
 
