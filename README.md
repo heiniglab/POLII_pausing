@@ -22,7 +22,7 @@ Toray S. Akcan, Matthias Heinig
 # Dependencies
 **R-version:** 4.0.3
 
-**Bioconductor-Version:**
+**Bioconductor-Version:** 3.12 (BiocManager 1.30.15), R 4.0.3 (2020-10-10)
 
 **CRAN-Packages:** 
 readr, fastcluster, pvclust, scales, reticulate", parallel, 
