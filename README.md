@@ -45,8 +45,8 @@ groHMM, HiTC, rtracklayer, RCAS", TFutils, universalmotif, org.Hs.eg.db, GOSim
 All neccessary packages will be installed automatically upon sourcing "init.R", however system-level dependencies might exist required by specific packages.
 
 # Data
-All necessary data sets with associated accession numbers are listed in individual xlsx-sheets in file "Data Acessions.xlsx" located in the resources folder. To increase the accessibility the data folder structure has been replicated in the "data" folder and each subfolder contains a "README.txt" with detailed steps to obtain relevant data sets pertaining each subfolder. 
+All necessary data sets with associated accession numbers are listed in individual xlsx-sheets in file **"Data Acessions.xlsx"** located in the resources folder. To increase replicability the data folder structure has been replicated in the "data" folder and each subfolder contains a "README.txt" with detailed steps to obtain relevant data sets pertaining each subfolder. 
 
-This git repository is accompanied by a Zenodo repository that hosts relevant data sets available at: 10.5281/zenodo.5236311
+This git repository is accompanied by a Zenodo repository that hosts relevant data sets available at: **10.5281/zenodo.5236311**
 
 # How to run script
