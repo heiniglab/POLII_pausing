@@ -55,6 +55,7 @@ All neccessary packages will be installed automatically upon sourcing "init.R", 
 
 # Data Availability
 The data folder structure has been replicated in the "data" folder and each subfolder contains a "README.txt" with detailed steps to obtain relevant data sets pertaining to each subfolder. This repository is accompanied by a Zenodo repository that hosts relevant data sets available at: **10.5281/zenodo.5236311**
+Please refer to **resources/folder-structure.txt** for an overview of the data folder structure.
 
 All necessary data sets with associated accession numbers are also listed in individual xlsx-sheets in file **"Data Acessions.xlsx"** located in the resources folder.
 
