@@ -67,11 +67,10 @@ The following computational resources are recommended to execute the whole scrip
 
 # Script Execution
 1) Clone this repository with **git clone https://github.com/heiniglab/POLII_pausing.git**
-2) Specify working directory in [Transcriptional_Pausing.R](src/Transcriptional_Pausing.R) (line 2)
-3) Specify number of available cores for low, average and high load computations (line 9); Defaults are 6, 12, 18 cores respectively
-4) Obtain all relevant data, see section [**Data Availability**](#data-availability)
-5) Run/Source [Transcriptional_Pausing.R](src/Transcriptional_Pausing.R)
-6) All plots will be available under [**src/plots**](src/plots) and resulting R-data structures under the [**results**](results) folder
+2) Specify working directory in [Transcriptional_Pausing.R](src/Transcriptional_Pausing.R) (line 2); Specify number of available cores for low, average and high load computations (line 9); Defaults to 6, 12, 18 cores respectively
+3) Obtain all relevant data, see section [**Data Availability**](#data-availability)
+4) Run/Source [Transcriptional_Pausing.R](src/Transcriptional_Pausing.R)
+5) All plots will be available under [**src/plots**](src/plots) and resulting R-data structures under the [**results**](results) folder
 
 # Key Data Structures
 * File **/results/Predictions/model_data/feature.vectors.RDS** contains feature matrices for each cell line
