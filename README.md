@@ -16,7 +16,7 @@ This git repository contains the code accompanying the manuscript
   
 # Script Overview
 
-[**Transcriptional_Pausing_MAIN.R:**](src/Transcriptional_Pausing.R) Main script to perform analyses; Uses all other R-script files.
+[**Transcriptional_Pausing.R:**](src/Transcriptional_Pausing.R) Main script to perform analyses; Uses all other R-script files.
 
 [**data_preprocessing.R:**](src/data_preprocessing.R) Functions for preprocessing (parsing) of all data sets for usage.
 
