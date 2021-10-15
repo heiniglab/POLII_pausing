@@ -1,13 +1,20 @@
 # POLII_pausing
-Code accompanying manuscript
+This git repository contains the code accompanying the manuscript
 
 **Predictive model of transcriptional elongation control identifies trans regulatory factors from chromatin signatures**
 
 Toray S. Akcan, Matthias Heinig
 
-# Folder Structure
-
-# Script Structure
+## Table of Contents
+  * [Script Overview](#script-overview)
+  * [Dependencies](#dependencies)
+  * [Data Availability](#data-availability)
+  * [Computational Requirements](#computational-requirements)
+  * [Script Execution](#script-execution)
+  * [Key Data Structures](#key-data-structures)
+  * [R Session Info](#r-session-info)
+  
+# Script Overview
 
 **Transcriptional_Pausing_MAIN.R:** Main script to perform analyses; Uses all other R-script files.
 
@@ -40,19 +47,36 @@ ggsci, gridGraphics, WriteXLS
 **Bioconductor-Packages:** 
 msa, GenomicFeatures,CAGEr, GenomicRanges, biomaRt,  Biostrings, topGO,  goSTAG,
 tracktables, GenomicAlignments, Rsamtools, BSgenome.Hsapiens.UCSC.hg19,
-groHMM, HiTC, rtracklayer, RCAS", TFutils, universalmotif, org.Hs.eg.db, GOSim
+groHMM, HiTC, rtracklayer, RCAS, TFutils, universalmotif, org.Hs.eg.db, GOSim
                  
 **External-Packages:** reconPlots
 
-All neccessary packages will be installed automatically upon sourcing "init.R", however system-level dependencies might exist required by specific packages.
+All neccessary packages will be installed automatically upon sourcing "init.R", however system-level dependencies required by specific packages might exist.
 
+# Data Availability
+All necessary data sets with associated accession numbers are listed in individual xlsx-sheets in file **"Data Acessions.xlsx"** located in the resources folder. To increase replicability the data folder structure has been replicated in the "data" folder and each subfolder contains a "README.txt" with detailed steps to obtain relevant data sets pertaining each subfolder. 
 
+This git repository is accompanied by a Zenodo repository that hosts relevant data sets available at: **10.5281/zenodo.5236311**
 
-# Data Aquisition
-All necessary data sets with associated accession numbers are listed in individual xlsx-sheets in file Data Acession.xlsx.
+# Computational Requirements
+The following computational resources are recommended to execute the whole script
 
-- Data tree structure
+* 360 GB RAM
+* 16 Cores
 
-# Project Initialization
+# Script Execution
+1) Clone this repository with **git clone https://github.com/heiniglab/POLII_pausing.git**
+2) Specify working directory in Transcriptional_Pausing.R (line 2)
+3) Specify number of available cores for low, average and high load computations (line 9); Defaults are 6, 12, 16 cores respectively
+4) Obtain all relevant data, see section **Data Availability**
+5) Run/Source Transcriptional_Pausing.R
+6) All plots will be available under **src/plots** and resulting R-data structures under the **results** folder
 
-# How to run script
+# Key Data Structures
+* File **/results/feature.vectors.RDS** Contains feature matrices for each cell line
+* File **/results/model.matrices.RDS** contains matrices with features (and feature sub-spaces) and targets for each cell line to train predictive models
+* File **/results/model.results.RDS** contains all model results (incl. model performance table) obtained by training XGB tree models
+* File **/results/rn7sk.binders.RDS** contains a genomic ranges object of 7SK transcript variants bound by proteins for each cell line idenfied from eCLIP-seq data
+
+# R Session Info
+![R Session info](https://user-images.githubusercontent.com/15715191/137335979-478dca86-5ec5-475c-bd58-79644c9213b7.png)
