@@ -4,7 +4,7 @@
 identify.7SK.binders <- function(RN7SK, clip.calls){
   
   # Check if a precalculated version exists
-  target.file <- paste(OUTPUT, "7SK/", "RN7SK.binders", ".RDS", sep = "")
+  target.file <- paste(OUTPUT, "RN7SK.binders.RDS", sep = "")
   if(!(CARGS$new) & file.exists(target.file)){
     binders <- readRDS( target.file)
     return(binders)
@@ -857,7 +857,7 @@ train.xgb.models <- function(model.matrices, append = ""){
 train.randomized.xgb.models <- function(){
   
   # Check if a precalculated version exists
-  target.file <- paste(OUTPUT,  "randomized.model.perf.RDS", sep = "")
+  target.file <- paste(OUTPUT, MODEL, "model_evaluation/randomized.model.perf.RDS", sep = "")
   if(!(CARGS$new) & file.exists(target.file)){
     performances <- readRDS(target.file)
     return(performances)
@@ -934,14 +934,12 @@ train.randomized.xgb.models <- function(){
                                                       test.rsqrd = model.results$test.rsqrd, 
                                                       nfeatures = nfeatures,
                                                       nfactors = nfactors,
-                                                      train.power = 100*(model.results$train.rsqrd/nfeatures),
-                                                      test.power = 100*(model.results$test.rsqrd/nfeatures),
                                                       mean.shap = mean.shap))
       return(model.results)
       
     })
   
-  saveRDS(performances, paste0(OUTPUT, "randomized.model.perf.RDS"))
+  saveRDS(performances, target.file)
   return(performances)
 }
 
@@ -1997,7 +1995,7 @@ evaluate.feature.effects <- function(model.results, feature.subspace, model.targ
         dna.intron.binders.functional.contribs <-
           lapply(sub.factor.feature.spaces, function(sub.space){
             factors <- names(dna.intron.binding.contribs)[names(dna.intron.binding.contribs) %in% sub.space[[train.cline]]]
-            sum(abs(dna.intron.binding.contribs[factors]))
+            sum((dna.intron.binding.contribs[factors]))
           })
         dna.intron.binders.functional.contribs <- unlist(dna.intron.binders.functional.contribs)
         dna.intron.binders.functional.contribs <- data.frame(Process = names(dna.intron.binders.functional.contribs), Contribution = dna.intron.binders.functional.contribs)
@@ -2066,7 +2064,7 @@ evaluate.feature.effects <- function(model.results, feature.subspace, model.targ
         rna.intron.binders.functional.contribs <- 
           lapply(sub.factor.feature.spaces, function(sub.space){
             factors <- names(rna.intron.binding.contribs)[names(rna.intron.binding.contribs) %in% sub.space[[train.cline]]]
-            sum(abs(rna.intron.binding.contribs[factors]))
+            sum((rna.intron.binding.contribs[factors]))
           })
         rna.intron.binders.functional.contribs <- unlist(rna.intron.binders.functional.contribs)
         rna.intron.binders.functional.contribs <- data.frame(Process = names(rna.intron.binders.functional.contribs), Contribution = rna.intron.binders.functional.contribs)
@@ -2157,6 +2155,10 @@ evaluate.feature.effects <- function(model.results, feature.subspace, model.targ
 
         # Build minimal model with top influential factors
         minimal.model.results <- train.minimal.model(all.optimal.factors, train.cline, matrix.type, feature.subspace)
+        minimal.model.results$minimal.model.perf <- 
+          minimal.model.results$minimal.model.perf+
+          xlab("Observed Pausing Index")+
+          ylab("Predicted Pausing Index")
         cowplot::save_plot(paste0("plots/supplementary_minimal_model_", train.cline,"_", matrix.type, ".png"),
                            plot = minimal.model.results$minimal.model.perf,
                            ncol = 1,
@@ -2188,36 +2190,36 @@ evaluate.feature.effects <- function(model.results, feature.subspace, model.targ
         # Figure 2
         indiv.full.model.perf <- model.performance$obs.v.pred.plot+
           #ggtitle("Observed vs. Predicted Traveling Ratio\nof independent test data set (K562)")+
-          xlab("Observed Traveling Ratio")+
-          ylab("Predicted Traveling Ratio")+
+          xlab("Observed Pausing Index")+
+          ylab("Predicted Pausing Index")+
           theme( legend.position = "right", plot.title = element_text(size=14))+
           theme_pubr( base_size = 14)
         
         sync.full.model.perf <- sync.model.performance$obs.v.pred.plot+
           #ggtitle("Observed vs. Predicted Traveling Ratio\nof independent cross cell type data set (HepG2)")+
-          xlab("Observed Traveling Ratio")+
-          ylab("Predicted Traveling Ratio")+
+          xlab("Observed Pausing Index")+
+          ylab("Predicted Pausing Index")+
           theme( legend.position = "right", plot.title = element_text(size=14))+
           theme_pubr( base_size = 14)
         
         cell.type.specific.sample <- cell.type.specific.sample.model.performances$cline.specific.traveling.ratios+
           #ggtitle("Cell type specific samples")+
-          xlab("Traveling Ratio (K562 cell line)")+
-          ylab("Traveling Ratio (HepG2 cell line)")+
+          xlab(paste0("Pausing Index (", train.cline, " cell line)"))+
+          ylab(paste0("Pausing Index (", test.cline, " cell line)"))+
           theme( plot.title = element_text(size=14))+
           theme_pubr( base_size = 14)
         
         cell.type.specific.traveling.ratio.prediction.performances <- cell.type.specific.sample.model.performances$cline.specific.traveling.ratio.prediction.performances+
           #ggtitle("Cell type specific sample prediction performances")+
-          xlab("log2(Obs_K562 / Obs_HepG2)")+
-          ylab("log2(Pred_K562 / Pred_HepG2)")+
+          xlab("Obs_K562_PI - Obs_HepG2_PI")+
+          ylab("Pred_K562_PI - Pred_HepG2_PI")+
           theme( plot.title = element_text(size=14))+
           theme_pubr( base_size = 14)
         
         cell.type.specific.sample.prediction.performances <- cell.type.specific.sample.model.performances$cell.line.specific.gene.prediction.performances+
           #ggtitle("Cell type specific sample prediction performances")+
-          xlab("Observed traveling ratio")+
-          ylab("Predicted traveling ratio")+
+          xlab("Observed Pausing Index")+
+          ylab("Predicted Pausing Index")+
           theme( plot.title = element_text(size=14))+
           theme_pubr( base_size = 14)
         
@@ -2274,11 +2276,11 @@ evaluate.feature.effects <- function(model.results, feature.subspace, model.targ
         
         # Figure 4
         grid1 <- 
-          plot_grid(weighted.aggregate.class.contributions,
+          plot_grid(#weighted.aggregate.class.contributions,
                     relative.aggregate.class.contributions,
                     labels = c("D", "E" ),
                     align = "h",
-                    ncol = 2,
+                    ncol = 1,
                     nrow = 1,
                     axis = "b")
         
@@ -2303,7 +2305,6 @@ evaluate.feature.effects <- function(model.results, feature.subspace, model.targ
                            base_height = 3.71)
         
         ### Figure 5
-        library(png)
         novel.modulators <- readPNG("./plots/ModulatorsOfPausing.png")
         novel.modulators <- 
           ggplot() +
@@ -2512,26 +2513,34 @@ retrieve.cell.type.specific.sample.prediction.performances <- function(sync.sele
   common.samples <- intersect(rownames(train.cline.target), rownames(test.cline.target))
   train.cline.target <- train.cline.target[match(common.samples, rownames(train.cline.target)),]
   test.cline.target <- test.cline.target[match(common.samples, rownames(test.cline.target)),]
-  observed.target.differences <- train.cline.target - test.cline.target
+  observed.target.differences <-  train.cline.target-test.cline.target
   
+  #observed.target.differences.test <- (test.cline.target-(train.cline.target))/abs(train.cline.target)*100
+  #observed.target.differences.train<- (train.cline.target-(test.cline.target))/abs(test.cline.target)*100
+
   
-  ## Retrieve cell type specific expressions via cutoff on the traveling ratio
+  # Retrieve cell type specific expressions via cutoff on the traveling ratio
   if(model.target.type == "traveling.ratio"){
-    train.cline.specific <- which(observed.target.differences >= log2(2))
-    test.cline.specific <- which(observed.target.differences < -log2(2))
+    train.cline.specific <- which(observed.target.differences >= 1)
+    test.cline.specific <- which(observed.target.differences <= -1)
   }else{
     train.cline.specific <- which(observed.target.differences >= log10(2))
     test.cline.specific <- which(observed.target.differences <= -log10(2))
   }
-  
-  
+
   ## Genes with cell type specific traveling ratio distributions
   target.profiles <- data.frame( sample = common.samples,
                                  train.cline.target = train.cline.target,
                                  test.cline.target = test.cline.target,
                                  specific = "none")
   target.profiles$specific[train.cline.specific] <- train.cline
-  target.profiles$specific[test.cline.specific] <- test.cline
+  target.profiles$specific[test.cline.specific] <- test.cline  
+  
+  # target.profiles$specific[observed.target.differences.test >= 100] <- test.cline 
+  # target.profiles$specific[observed.target.differences.test <= -100] <- train.cline 
+  # 
+  # target.profiles$specific[observed.target.differences.train >= 100] <- train.cline
+  # target.profiles$specific[observed.target.differences.train <= -100] <- test.cline
   target.profiles$specific <- as.factor(target.profiles$specific)
   
   cline.specific.traveling.ratios <- 
@@ -2543,12 +2552,16 @@ retrieve.cell.type.specific.sample.prediction.performances <- function(sync.sele
                       #shape = "specific",                        # Change point shape by groups "cyl"
                       fullrange = TRUE,                         # Extending the regression line
                       rug = F,                                # Add marginal rug
-                      alpha = 1/7,
-                      show.legend.text = FALSE
+                      alpha = 1/5,
+                      show.legend.text = FALSE,
+                      xlim = c(-5, 20),
+                      ylim = c(-5, 20),
+                      #xticks.by = 1,
+                      #yticks.by = 1
     )+
     xlab(paste0(train.cline," ", "traveling ratio"))+
     ylab(paste0(test.cline," ",  "traveling ratio"))+
-    scale_color_manual(name = "At least twice as high traveling ratio in ",
+    scale_color_manual(name = "At least twice as high pausing index in ",
                        breaks = c("HepG2", "K562", "none"),
                        values = c("HepG2" = pal_uchicago("dark")(9)[c(4:6)][1],
                                   "K562" = pal_uchicago("dark")(9)[c(4:6)][2],
@@ -2576,8 +2589,9 @@ retrieve.cell.type.specific.sample.prediction.performances <- function(sync.sele
                               row.names = NULL)
   
   all.sample.predictions <- data.frame(samples = common.samples,
-                                       pred.diff = test.pred.mat$predictions-train.pred.mat$predictions,
-                                       target.diff =  observed.target.differences,
+                                       pred.diff = train.pred.mat$predictions-test.pred.mat$predictions,
+                                       #target.diff =  observed.target.differences,
+                                       target.diff = train.pred.mat$observed.cross.cline - test.pred.mat$observed.cross.cline,
                                        expressed = "both")
   
   all.sample.predictions$expressed[all.sample.predictions$sample %in% target.profiles$sample[target.profiles$specific==train.cline]] <- train.cline
@@ -2593,12 +2607,13 @@ retrieve.cell.type.specific.sample.prediction.performances <- function(sync.sele
                       #palette = pal_uchicago("dark")(9)[c(4:6)],           
                       fullrange = TRUE,                         
                       rug = F,
-                      alpha = 1/7
+                      alpha = 1/5
     )+
     ggpubr::stat_cor(aes(color = expressed), cor.coef.name = c("rho"))+
+    #ggpubr::stat_cor(cor.coef.name = c("rho"))+
     xlab("Observed traveling ratio difference")+
     ylab("Predicted traveling ratio difference")+
-    scale_color_manual(name = "Genes with higher traveling ratio in ",
+    scale_color_manual(name = "Genes with higher pausing indices in ",
                        breaks = c("HepG2", "K562"),
                        values = c("HepG2" = pal_uchicago("dark")(9)[c(4:6)][1],
                                   "K562" = pal_uchicago("dark")(9)[c(4:6)][2]),
@@ -2609,12 +2624,14 @@ retrieve.cell.type.specific.sample.prediction.performances <- function(sync.sele
                      plot = cline.specific.traveling.ratio.prediction.performances)
   
   # # Add genes that are exclusively present in one cell line but not the other
+  # Train cline exclusively expressed genes
   additional.train.cline.genes <- sync.select.model.results$Y[!rownames(sync.select.model.results$Y) %in% rownames(sync.reverse.model.results$Y),]
+  # Test cline exclusively expressed genes
   additional.test.cline.genes <-  sync.reverse.model.results$Y[!rownames(sync.reverse.model.results$Y) %in% rownames(sync.select.model.results$Y),]
   additional.train.cline.genes <- data.frame(sample = names(additional.train.cline.genes),
                                              observed.target = additional.train.cline.genes,
-                                            cross.cline.preds = sync.reverse.model.results$test.preds[match(names(additional.train.cline.genes), names(sync.reverse.model.results$test.preds))],
-                                            specific = train.cline)
+                                             cross.cline.preds = sync.reverse.model.results$test.preds[match(names(additional.train.cline.genes), names(sync.reverse.model.results$test.preds))],
+                                             specific = train.cline)
   rownames(additional.train.cline.genes) <- NULL
   additional.test.cline.genes <- data.frame(sample = names(additional.test.cline.genes),
                                              observed.target = additional.test.cline.genes,
@@ -2633,7 +2650,7 @@ retrieve.cell.type.specific.sample.prediction.performances <- function(sync.sele
                       #shape = "specific",                        # Change point shape by groups "cyl"
                       fullrange = TRUE,                         # Extending the regression line
                       rug = F,                                # Add marginal rug
-                      alpha = 1/7,
+                      alpha = 1/5,
                       add = "reg.line",
                       show.legend.text = FALSE
     )+
@@ -2646,7 +2663,7 @@ retrieve.cell.type.specific.sample.prediction.performances <- function(sync.sele
                        values = c("HepG2" = alpha('#21908dff',1),
                                   "K562" = alpha("#440154ff",1)),
                        guide = guide_legend(override.aes = list(alpha = 1, size = 6)))+
-    ggpubr::stat_cor(aes(color = specific), cor.coef.name = c("rho"))+
+    ggpubr::stat_cor(aes(color = specific), cor.coef.name = c("rho"), digits = 3)+
     theme_pubr( base_size = plot.base.size)
 
 
@@ -5448,8 +5465,12 @@ create.supplementary.tables <- function(feature.vectors, model.matrices, model.r
   })
 
   ## Established pausing factors
-  known.pausing.factors <- data.frame(Factors = sub.factor.feature.spaces$Known$K562)
-  
+  sub.factor.feature.spaces <- build.pausing.associated.factor.sub.feature.spaces()
+  sub.factor.feature.spaces <- 
+    build.sequence.specific.biologically.functional.feature.sub.spaces(stratify = sub.factor.feature.spaces)
+  known.pausing.factors <- unique(unlist(c(sub.factor.feature.spaces$`Elongation`$K562, sub.factor.feature.spaces$`Elongation`$HepG2)))
+  known.pausing.factors <- unique(known.pausing.factors[known.pausing.factors %in% unique(c(unlist(dbp.factors), unlist(rbp.factors)))])
+  known.pausing.factors <- data.frame(Factors = known.pausing.factors)
   
   ## Hyperparameters
   hyperparameters <- list(eta = 0.08,
@@ -5499,9 +5520,9 @@ create.supplementary.tables <- function(feature.vectors, model.matrices, model.r
                 encode.eclipseq.HepG2.accession.table,
                 K562.7SK.binding,
                 HepG2.7SK.binding,
-                known.pausing.factors, 
                 factor.binding.dist$K562, 
                 factor.binding.dist$HepG2,
+                known.pausing.factors, 
                 factors.per.process.K562,
                 factors.per.process.HepG2,
                 cline.sequence.specific.factors$K562,
@@ -5522,9 +5543,9 @@ create.supplementary.tables <- function(feature.vectors, model.matrices, model.r
                           "S8 HepG2 eCLIPseq Accessions",
                           "S9 K562 7SK Binding factors",
                           "S10 HepG2 7SK Binding Factors",
-                          "S11 Known Pausing Factors",
-                          "S12 K562 Factor Bindings",
-                          "S13 HepG2 Factor Bindings",
+                          "S11 K562 Factor Bindings",
+                          "S12 HepG2 Factor Bindings",
+                          "S13 Known Pausing Factors",
                           "S14 K562 Factors per Process",
                           "S15 HepG2 Factors per Process",
                           "S16 K562 Sequence Specificity",

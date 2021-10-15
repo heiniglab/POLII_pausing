@@ -238,10 +238,8 @@ calculate.traveling.ratio <- function(){
 ###
 load.7SKncRNA.data <- function(){
   
-  # Create output directory
-  dir.create(paste(OUTPUT, "7SK/", sep = ""))
   # Check if a precalculated version exists
-  target.file <- paste(OUTPUT, "7SK/", "RN7SK", ".RDS", sep = "")
+  target.file <- paste(OUTPUT,"RN7SK.RDS", sep = "")
   if(!(CARGS$new) & file.exists(target.file)){
     RN7SK <- readRDS(target.file)
     return(RN7SK)
@@ -605,8 +603,8 @@ build.feature.vector <- function(targeted.annot = c("five_prime",
       
       ## Retrieve cpg island annotations
       tx.ranges <- valid.coding.transcripts[[cline]]
-      dist.nearest.cpg.island <- distanceToNearest(tx.ranges, cpg.island.annotations)
-      nearest.cpg.islands <- cpg.island.annotations[subjectHits(dist.nearest.cpg.island)]
+      dist.nearest.cpg.island <- distanceToNearest(tx.ranges, CPG.ISLANDS)
+      nearest.cpg.islands <- CPG.ISLANDS[subjectHits(dist.nearest.cpg.island)]
       cpg.island.dist <- rescale(dist.nearest.cpg.island@elementMetadata$distance)
       cpg.island.length <- rescale(nearest.cpg.islands$length)
       cpg.island.count <- rescale(nearest.cpg.islands$cpg.counts)
@@ -637,8 +635,6 @@ build.feature.vector <- function(targeted.annot = c("five_prime",
                                     rbp.bindings,
                                     dna.bindings,
                                     nearest.lincRNA.ids,
-                                    #nearest.lincRNA.quant,
-                                    #nearest.lincRNA.dist,
                                     ncRNA.dbp.bindings,
                                     ncRNA.rbp.bindings)
       
@@ -680,43 +676,6 @@ exclude.features <- function(feature.vectors, patterns){
 ###
 build.pausing.associated.factor.sub.feature.spaces <- function(){
   
-  # clip.targets <- lapply(eCLIPseq, function(peaks){
-  #   as.character(unique(peaks$hgnc_symbol))
-  # })
-  # chip.targets <- lapply(CHIPseq, function(peaks){
-  #   as.character(unique(peaks$hgnc_symbol))
-  # })
-  # all.targets  <- lapply(CARGS$cell.line, function(cline){
-  #   all.targets <- unique(c(clip.targets[[cline]], chip.targets[[cline]]))
-  #   all.targets[!is.na(all.targets)]
-  # })
-  # all.targets <- unique(unlist(all.targets))
-  
-  # all.targets <- sort(all.targets)
-  # 
-  # 
-  # # load the annotation database
-  # library(org.Hs.eg.db)
-  # # set up your query genes
-  # 
-  # # use sql to get alias table and gene_info table (contains the symbols)
-  # # first open the database connection
-  # dbCon <- org.Hs.eg_dbconn()
-  # # write your SQL query
-  # sqlQuery <- 'SELECT * FROM alias, gene_info WHERE alias._id == gene_info._id;'
-  # # execute the query on the database
-  # aliasSymbol <- dbGetQuery(dbCon, sqlQuery)
-  # 
-  # # subset to get your results
-  # queryGeneNames <- c("NELFE", "SUPT5H", "MLLT1", "LARP7", "BRD4", "MYC", "CDK9", "DSIF", "NELF")
-  # result <- aliasSymbol[which(aliasSymbol$alias_symbol %in% queryGeneNames),]
-  
-  
-  # result <- aliasSymbol[which(aliasSymbol$symbol %in% queryGeneNames), ]
-  # aliases <- result$alias_symbol
-  # aliases[which(aliases %in% all.targets)]
-  
-  
   # Convert ensemble ids to hgnc symbols
   convert.ids <- function(ids, reverse = F){
     if(reverse){
@@ -725,21 +684,21 @@ build.pausing.associated.factor.sub.feature.spaces <- function(){
     return(as.character(GENE.ANNOT$id_map$hgnc_symbol[match(ids, GENE.ANNOT$id_map$ensembl_gene_id)]))
   }
   
-  # Function to retrieve genes which share a domain with query genes
-  sdom.factors <- function(targets){
-    shared.domain.factors <- 
-      lapply(targets, function(factor){
-        # Retrieve factor's domains
-        domains <- SDOMAINS$members[[factor]]
-        # For each factor's domain, retrieve associated factors
-        related.factors <- 
-          sapply(domains, function(domain){
-            sdom.all.targets[sdom.all.targets %in% SDOMAINS$groups[[domain]]]
-          })
-        unique(unlist(related.factors, use.names = F))
-      }) 
-    shared.domain.factors <- c(shared.domain.factors, targets) %>% unlist() %>% unique()
-  }
+  # # Function to retrieve genes which share a domain with query genes
+  # sdom.factors <- function(targets){
+  #   shared.domain.factors <- 
+  #     lapply(targets, function(factor){
+  #       # Retrieve factor's domains
+  #       domains <- SDOMAINS$members[[factor]]
+  #       # For each factor's domain, retrieve associated factors
+  #       related.factors <- 
+  #         sapply(domains, function(domain){
+  #           sdom.all.targets[sdom.all.targets %in% SDOMAINS$groups[[domain]]]
+  #         })
+  #       unique(unlist(related.factors, use.names = F))
+  #     }) 
+  #   shared.domain.factors <- c(shared.domain.factors, targets) %>% unlist() %>% unique()
+  # }
   
   # Exclude factors from set B from set A
   set.diff.factors <- function(A, B){
@@ -766,11 +725,11 @@ build.pausing.associated.factor.sub.feature.spaces <- function(){
   full <- all.targets
   all.targets <- unique(unlist(all.targets))
   
-  # Remove RNA bninding containg motif grouped shared domain factos group
-  SDOMAINS$groups$`725` <- c()
-  
-  # Identify factors which have shared domains
-  sdom.all.targets <- all.targets[all.targets %in% names(SDOMAINS$members)]
+  # # Remove RNA bninding containg motif grouped shared domain factos group
+  # SDOMAINS$groups$`725` <- c()
+  # 
+  # # Identify factors which have shared domains
+  # sdom.all.targets <- all.targets[all.targets %in% names(SDOMAINS$members)]
   
   ##  Define (A)  the set of known pausing factors from literature
   known.pausing.factors <- c("NELFE", "SUPT5H", 
@@ -806,9 +765,9 @@ build.pausing.associated.factor.sub.feature.spaces <- function(){
   A <- list(K562 = known.pausing.factors.ids,
             HepG2 = known.pausing.factors.ids)    
   
-  ## Define (B) the set of factors which share a binding domain with known pausing factors
-  B <- sdom.factors(known.pausing.factors.ids)
-  B <- list(K562 = B, HepG2 = B)
+  # ## Define (B) the set of factors which share a binding domain with known pausing factors
+  # B <- sdom.factors(known.pausing.factors.ids)
+  # B <- list(K562 = B, HepG2 = B)
   
   ## Define (C) the set of true 7SK binders
   rn7sk.targets <- 
@@ -827,59 +786,59 @@ build.pausing.associated.factor.sub.feature.spaces <- function(){
   D <- combine.lists(C, pseudo.rn7sk.targets)
   
   ## Define (E) the set of all true 7SK targets and shared domain associated factors
-  E <- lapply(C, sdom.factors)
+  #E <- lapply(C, sdom.factors)
   
   ## Define (F) the set of true and pseudo 7SK binding targets and shared domain factors
-  FF <- lapply(D, sdom.factors)
+  #FF <- lapply(D, sdom.factors)
   
   ## Define (G) the set of pausing related factors, i.e. known, known sdom, 7SK binding, pseudo 7SK binding and all their sdom targets
-  G <- combine.lists(B, FF)
+  #G <- combine.lists(B, FF)
   
   ## Define (H) the set of all factors excluding pausing associated factors
-  H <- set.diff.factors(full, G)
+  #H <- set.diff.factors(full, G)
   
   #  Define (I) the set of all known and novel pausing factors excluding sdom factors
   I <- combine.lists(A, D)
   
   # Remove 7SK binders from established pausing factor's shared domain factors
-  B <- set.diff.factors(B, FF)
+  #B <- set.diff.factors(B, FF)
   
   # Remove established pausing factors from 7SK binder's associated shared domain factors
-  E <- set.diff.factors(E, B)
-  FF <- set.diff.factors(FF, B)
+  #E <- set.diff.factors(E, B)
+  #FF <- set.diff.factors(FF, B)
   
   ## Convert transcript ids to hgnc symbols for subsetting feature matrices
   full <-  lapply(full, convert.ids)
   A <-  lapply(A, convert.ids)
-  B <-  lapply(B, convert.ids)
+  #B <-  lapply(B, convert.ids)
   C <-  lapply(C, convert.ids)
   D <-  lapply(D, convert.ids)
-  E <-  lapply(E, convert.ids)
-  FF <-  lapply(FF, convert.ids)
-  G <-  lapply(G, convert.ids)
-  H <-  lapply(H, convert.ids)
+  #E <-  lapply(E, convert.ids)
+  #FF <-  lapply(FF, convert.ids)
+  #G <-  lapply(G, convert.ids)
+  #H <-  lapply(H, convert.ids)
   I <-  lapply(I, convert.ids)
   
   feature.sets <- list(All = full,
                        Known = A,
-                       Known.sdom = B,
+                       #Known.sdom = B,
                        RN7SK = C,
                        all.RN7SK = D,
-                       RN7SK.sdom= E,
-                       all.RN7SK.sdom = FF,
-                       pausing.sdom = G,
-                       non.pausing= H,
+                       #RN7SK.sdom= E,
+                       #all.RN7SK.sdom = FF,
+                       #pausing.sdom = G,
+                       #non.pausing= H,
                        pausing = I)
   
   names(feature.sets) <- c("All", 
                            "Known", 
-                           "Known.sdom", 
+                           #"Known.sdom", 
                            "7SK.Binding*", 
                            "7SK.Binding", 
-                           "7SK.sdom", 
-                           "All.7SK.sdom", 
-                           "Pausing.sdom", 
-                           "Non-Pausing", 
+                           #"7SK.sdom", 
+                           #"All.7SK.sdom", 
+                           #"Pausing.sdom", 
+                           #"Non-Pausing", 
                            "Pausing" )
   
   ## (K) Random sets of factors
@@ -915,6 +874,13 @@ build.pausing.associated.factor.sub.feature.spaces <- function(){
 # This function identifies sequence specific factors
 ###
 retrieve.sequence.specific.factors <- function(){
+  
+  # Check if a precalculated version exists
+  target.file <- paste0(OUTPUT,"factor.sequence.specificity.RDS", sep="")
+  if(!(CARGS$new) & file.exists(target.file)){
+    factor.sequence.specificity <- readRDS(target.file)
+    return(factor.sequence.specificity)
+  }
   
   ## Retrieve all available DNA binding and RNA binding factors from both cell lines
   # Retrieve all DNA binding factors
@@ -963,10 +929,13 @@ retrieve.sequence.specific.factors <- function(){
   sequence.specific <- factor.classes$factor[factor.classes$sequence_specific==1]
   nonsequence.specific <- factor.classes$factor[factor.classes$sequence_specific==0]
   
-  return(list(sequence.specific = sequence.specific, 
-              nonsequence.specific = nonsequence.specific, 
-              dbp.factors = dbp.factors, 
-              rbp.factors = rbp.factors))
+  factor.sequence.specificity <- list(sequence.specific = sequence.specific, 
+                                      nonsequence.specific = nonsequence.specific, 
+                                      dbp.factors = dbp.factors, 
+                                      rbp.factors = rbp.factors)
+  
+  saveRDS(factor.sequence.specificity, target.file)
+  return(factor.sequence.specificity)
 }
 ###
 # This function build sub feature spaces based on prior knowledge of sequence 
@@ -1000,17 +969,17 @@ build.sequence.specific.biologically.functional.feature.sub.spaces <- function(s
          Initiation = c("RNA polymerase II preinitiation complex assembly",
                         "transcription initiation from RNA polymerase II promoter"),
          
-         pos_regulation=c("positive regulation of transcription by RNA polymerase II",
-                          "positive regulation of transcription, DNA-templated"),
+         #pos_regulation=c("positive regulation of transcription by RNA polymerase II",
+         #                 "positive regulation of transcription, DNA-templated"),
          
-         neg_regulation=c("negative regulation of transcription by RNA polymerase II",
-                          "negative regulation of transcription, DNA-templated"),
+         #neg_regulation=c("negative regulation of transcription by RNA polymerase II",
+         #                 "negative regulation of transcription, DNA-templated"),
          
          Elongation=c("transcription elongation from RNA polymerase II promoter"),
          
          Termination=c("termination of RNA polymerase II transcription"),
          
-         Translation=c("translational initiation" ,"translation"), 
+         #Translation=c("translational initiation" ,"translation"), 
          
          Splicing=c("mRNA splicing, via spliceosome",
                     "regulation of alternative mRNA splicing, via spliceosome"),
@@ -1081,17 +1050,18 @@ build.sequence.specific.biologically.functional.feature.sub.spaces <- function(s
 ###
 build.model.matrices <- function(feature.vectors, exclude = NULL){
   
+  ## Create output directories
+  dir.create(paste(OUTPUT, MODEL, "model_data/", sep = ""))
+  dir.create(paste(OUTPUT, MODEL, "model_evaluation/", sep = ""))
+  
   ## Check if a precalculated version exists
-  target.file <- paste(OUTPUT, MODEL, "model_data/", "model.matrices", ".RDS", sep = "")
+  target.file <- paste(OUTPUT, MODEL, "model_data/", "model.matrices.RDS", sep = "")
   if(!(CARGS$new) & file.exists(target.file)){
     model.matrices <- readRDS(target.file)
     return(model.matrices)
   }
   
-  ## Create output directories
-  dir.create(paste(OUTPUT, MODEL, "model_data/", sep = ""))
-  dir.create(paste(OUTPUT, MODEL, "model_evaluation/", sep = ""))
-  
+
   ## Get common transcripts across cell lines
   # cline.transcript.overlap <- intersect(intersect(traveling.ratios$K562$transcript_id,
   #                                                 traveling.ratios$HepG2$transcript_id), 
