@@ -79,7 +79,7 @@ The following computational resources are recommended to execute the whole scrip
 * File **/results/chipseq.peaks.RDS** contains a genomic ranges object of protein coding transcripts bound by specific proteins on the DNA
 * File **/results/eclipseq.peaks.RDS** contains a genomic ranges object of protein coding transcripts bound by specific proteins on the RNA
 * File **/results/rn7sk.binders.RDS** contains a genomic ranges object of 7SK transcript variants bound by proteins for each cell line idenfied from eCLIP-seq data
-* File **/results/traveling_ratios.RDS** contains a genomic ranges object with pausing indices/traveling ratios for protein coding transcripts of each cell line
+* File **/results/traveling_ratio.RDS** contains a genomic ranges object with pausing indices/traveling ratios for protein coding transcripts of each cell line
 
 # R Session Info
 ![R Session info](https://user-images.githubusercontent.com/15715191/137335979-478dca86-5ec5-475c-bd58-79644c9213b7.png)
