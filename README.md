@@ -61,7 +61,7 @@ This git repository is accompanied by a Zenodo repository that hosts relevant da
 # Computational Requirements
 The following computational resources are recommended to execute the whole script
 
-* 360GB RAM
+* 360 GB RAM
 * 16 Cores
 
 # Script Execution
@@ -70,7 +70,7 @@ The following computational resources are recommended to execute the whole scrip
 3) Specify number of available cores for low, average and high load computations (line 9); Defaults are 6, 12, 16 cores respectively
 4) Obtain all relevant data, see section **Data Availability**
 5) Run/Source Transcriptional_Pausing.R
-6) All plots will be avaialbe under **src/plots** and resulting R-data structures under the **results** folder
+6) All plots will be available under **src/plots** and resulting R-data structures under the **results** folder
 
 # Key Data Structures
 * File **/results/feature.vectors.RDS** Contains feature matrices for each cell line
