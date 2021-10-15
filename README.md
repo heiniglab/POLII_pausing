@@ -16,15 +16,15 @@ Toray S. Akcan, Matthias Heinig
   
 # Script Overview
 
-**Transcriptional_Pausing_MAIN.R:** Main script to perform analyses; Uses all other R-script files.
+[**Transcriptional_Pausing_MAIN.R:**](src/Transcriptional_Pausing.R) Main script to perform analyses; Uses all other R-script files.
 
-**data_preprocessing.R:** Functions for preprocessing (parsing) of all data sets for usage.
+[**data_preprocessing.R:**](src/data_preprocessing.R) Functions for preprocessing (parsing) of all data sets for usage.
 
-**data_processing.R:** Functions for processing of all data sets for downstream analyses.
+[**data_processing.R:**](src/data_processing.R) Functions for processing of all data sets for downstream analyses.
 
-**data_analyses.R:** Actual analyses of processed datasets.
+[**data_analyses.R:**](src/data_analyses.R) Actual analyses of processed datasets.
 
-**helper_functions.R:** Generic helper functions.
+[**helper_functions.R:**](src/helper_functions.R) Generic helper functions.
 
 # Dependencies
 **R-version:** 4.0.3
@@ -67,11 +67,11 @@ The following computational resources are recommended to execute the whole scrip
 
 # Script Execution
 1) Clone this repository with **git clone https://github.com/heiniglab/POLII_pausing.git**
-2) Specify working directory in Transcriptional_Pausing.R (line 2)
+2) Specify working directory in [Transcriptional_Pausing.R](src/Transcriptional_Pausing.R) (line 2)
 3) Specify number of available cores for low, average and high load computations (line 9); Defaults are 6, 12, 18 cores respectively
-4) Obtain all relevant data, see section **Data Availability**
-5) Run/Source Transcriptional_Pausing.R
-6) All plots will be available under **src/plots** and resulting R-data structures under the **results** folder
+4) Obtain all relevant data, see section [**Data Availability**](#data-availability)
+5) Run/Source [Transcriptional_Pausing.R](src/Transcriptional_Pausing.R)
+6) All plots will be available under [**src/plots**](src/plots) and resulting R-data structures under the [**results**](results) folder
 
 # Key Data Structures
 * File **/results/Predictions/model_data/feature.vectors.RDS** contains feature matrices for each cell line
