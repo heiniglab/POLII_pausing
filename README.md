@@ -3,7 +3,7 @@ This git repository contains the code accompanying the manuscript
 
 **Predictive model of transcriptional elongation control identifies trans regulatory factors from chromatin signatures**
 
-Toray S. Akcan, Matthias Heinig
+*Toray S. Akcan*, *Matthias Heinig*
 
 ## Table of Contents
   * [Script Overview](#script-overview)
