@@ -54,7 +54,7 @@ groHMM, HiTC, rtracklayer, RCAS, TFutils, universalmotif, org.Hs.eg.db, GOSim
 All neccessary packages will be installed automatically upon sourcing [init.R](src/init.R), however system-level dependencies required by specific packages might exist.
 
 # Data Availability
-The data folder structure has been replicated in the [data](data) folder and each subfolder contains a *README.txt* with detailed steps to obtain relevant data sets pertaining to each subfolder. This repository is accompanied by a *Zenodo repository* that hosts relevant data sets available at: **10.5281/zenodo.5236311**
+The data folder structure has been replicated in the [data](data) folder and each subfolder contains a *README.txt* with detailed steps to obtain relevant data sets pertaining to each subfolder. This repository is accompanied by a *Zenodo repository* that hosts relevant data sets available at: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5236311.svg)](https://doi.org/10.5281/zenodo.5236311)
 Please refer to [**resources/folder-structure.txt**](resources/folder-structure.txt) for an overview of the data folder structure.
 
 All necessary data sets with associated accession numbers are also listed in individual xlsx-sheets in file [**data-accessions.xlsx**](resources/data-accessions.xlsx) located in the resources folder.
