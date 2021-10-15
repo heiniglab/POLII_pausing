@@ -5,6 +5,9 @@ If desired, please download all the following data set from the Zenodo repositor
 - GENE.QUANT.RDS
 - chipseq.peaks.RDS
 - eclipseq.peaks.RDS
+- housekeeping.genes.RDS
+- factor.sequence.specificity.RDS
+- cpg.islands.RDS
 - valid.coding.transcripts.RDS
 - valid.non.coding.transcripts.RDS
 - traveling_ratio.RDS
