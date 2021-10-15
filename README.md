@@ -51,13 +51,13 @@ groHMM, HiTC, rtracklayer, RCAS, TFutils, universalmotif, org.Hs.eg.db, GOSim
                  
 **External-Packages:** reconPlots
 
-All neccessary packages will be installed automatically upon sourcing "init.R", however system-level dependencies required by specific packages might exist.
+All neccessary packages will be installed automatically upon sourcing [init.R](src/init.R), however system-level dependencies required by specific packages might exist.
 
 # Data Availability
-The data folder structure has been replicated in the "data" folder and each subfolder contains a "README.txt" with detailed steps to obtain relevant data sets pertaining to each subfolder. This repository is accompanied by a Zenodo repository that hosts relevant data sets available at: **10.5281/zenodo.5236311**
-Please refer to **resources/folder-structure.txt** for an overview of the data folder structure.
+The data folder structure has been replicated in the [data](data) folder and each subfolder contains a *README.txt* with detailed steps to obtain relevant data sets pertaining to each subfolder. This repository is accompanied by a *Zenodo repository* that hosts relevant data sets available at: **10.5281/zenodo.5236311**
+Please refer to [**resources/folder-structure.txt**](resources/folder-structure.txt) for an overview of the data folder structure.
 
-All necessary data sets with associated accession numbers are also listed in individual xlsx-sheets in file **"Data Acessions.xlsx"** located in the resources folder.
+All necessary data sets with associated accession numbers are also listed in individual xlsx-sheets in file [**Data-Accessions.xlsx**](resources/Data-Accessions.xlsx) located in the resources folder.
 
 # Computational Requirements
 The following computational resources are recommended to execute the whole script
