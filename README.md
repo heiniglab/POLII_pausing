@@ -54,9 +54,9 @@ groHMM, HiTC, rtracklayer, RCAS, TFutils, universalmotif, org.Hs.eg.db, GOSim
 All neccessary packages will be installed automatically upon sourcing "init.R", however system-level dependencies required by specific packages might exist.
 
 # Data Availability
-All necessary data sets with associated accession numbers are listed in individual xlsx-sheets in file **"Data Acessions.xlsx"** located in the resources folder. To increase replicability the data folder structure has been replicated in the "data" folder and each subfolder contains a "README.txt" with detailed steps to obtain relevant data sets pertaining each subfolder. 
+The data folder structure has been replicated in the "data" folder and each subfolder contains a "README.txt" with detailed steps to obtain relevant data sets pertaining to each subfolder. This repository is accompanied by a Zenodo repository that hosts relevant data sets available at: **10.5281/zenodo.5236311**
 
-This git repository is accompanied by a Zenodo repository that hosts relevant data sets available at: **10.5281/zenodo.5236311**
+All necessary data sets with associated accession numbers are also listed in individual xlsx-sheets in file **"Data Acessions.xlsx"** located in the resources folder.
 
 # Computational Requirements
 The following computational resources are recommended to execute the whole script
@@ -67,7 +67,7 @@ The following computational resources are recommended to execute the whole scrip
 # Script Execution
 1) Clone this repository with **git clone https://github.com/heiniglab/POLII_pausing.git**
 2) Specify working directory in Transcriptional_Pausing.R (line 2)
-3) Specify number of available cores for low, average and high load computations (line 9); Defaults are 6, 12, 16 cores respectively
+3) Specify number of available cores for low, average and high load computations (line 9); Defaults are 6, 12, 18 cores respectively
 4) Obtain all relevant data, see section **Data Availability**
 5) Run/Source Transcriptional_Pausing.R
 6) All plots will be available under **src/plots** and resulting R-data structures under the **results** folder
