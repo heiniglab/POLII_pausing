@@ -1,5 +1,5 @@
 # Set current working directory
-setwd("YOUR/PATH/TO/SRC/WORKING/DIRECTORY")
+setwd("YOUR/PATH/TO/SRC/FOLDER")
 # Initialize all accompanying scripts
 source("init.R")
 source("data_preprocessing.R")
@@ -46,6 +46,8 @@ traveling.ratios <- calculate.traveling.ratio()
 RN7SK.ANNOT <- load.7SKncRNA.data()
 # Identify novel 7SK-ncRNA binding proteins
 novel.rn7sk.binders <- identify.7SK.binders(RN7SK.ANNOT, eCLIPseq)
+# Calculate relatedness of 7SK transcript variants
+rn7sk.phylogeny()
 # Group transcripts by bound RNA-binding proteins (RBPs)
 tx.by.rbp <- get.target.transcripts(eCLIPseq, name = "tx.by.rbp.eclip")
 # Group transcripts by bound DNA-binding proteins (DBPs)
@@ -62,20 +64,9 @@ model.results <- train.xgb.models(model.matrices)
 random.model.results <- train.randomized.xgb.models()
 
                                                     #### Model interpretations
-# Retrieve feature importances of predictive models
+# Interpret model results (create paper figures)
 evaluate.feature.effects(model.results = model.results,
                          feature.subspace = "All",
                          model.target = "target_traveling.ratio",
                          plot.base.size =  16)
-
-
-
-
-#prepare.paper.figures()
-
-plot.base.size = 10                                
-#visualize.transcript.quantifications()
-# visualize.traveling.ratio(plot.base.size)
-# visualize.traveling.ratio.transcript.expression.distribution(plot.base.size)
-# visualize.7SK.binders()
-# visualize.features()
+create.supplementary.tables()
