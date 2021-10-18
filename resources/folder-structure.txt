@@ -1,4 +1,4 @@
-src
+repo
 |-- README.md
 |-- data
 |   |-- CHIPseq
@@ -46,7 +46,6 @@ src
 |               `-- metadata_eCLIP_K562.tsv
 |-- resources
 |   |-- Data\ Accessions.xlsx
-|   |-- detailed.folder.structure.txt
 |   `-- folder.structure.txt
 |-- results
 |   |-- Predictions
