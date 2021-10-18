@@ -16,7 +16,7 @@ This git repository contains the code accompanying the manuscript
   
 # Script Overview
 
-[**Transcriptional_Pausing_MAIN.R:**](src/Transcriptional_Pausing.R) Main script to perform analyses; Uses all other R-script files.
+[**Transcriptional_Pausing.R:**](src/Transcriptional_Pausing.R) Main script to perform analyses; Uses all other R-script files.
 
 [**data_preprocessing.R:**](src/data_preprocessing.R) Functions for preprocessing (parsing) of all data sets for usage.
 
@@ -54,10 +54,10 @@ groHMM, HiTC, rtracklayer, RCAS, TFutils, universalmotif, org.Hs.eg.db, GOSim
 All neccessary packages will be installed automatically upon sourcing [init.R](src/init.R), however system-level dependencies required by specific packages might exist.
 
 # Data Availability
-The data folder structure has been replicated in the [data](data) folder and each subfolder contains a *README.txt* with detailed steps to obtain relevant data sets pertaining to each subfolder. This repository is accompanied by a *Zenodo repository* that hosts relevant data sets available at: **10.5281/zenodo.5236311**
+The data folder structure has been replicated in the [data](data) folder and each subfolder contains a *README.txt* with detailed steps to obtain relevant data sets pertaining to each subfolder. This repository is accompanied by a *Zenodo repository* that hosts relevant data sets available at: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5236311.svg)](https://doi.org/10.5281/zenodo.5236311)
 Please refer to [**resources/folder-structure.txt**](resources/folder-structure.txt) for an overview of the data folder structure.
 
-All necessary data sets with associated accession numbers are also listed in individual xlsx-sheets in file [**Data-Accessions.xlsx**](resources/Data-Accessions.xlsx) located in the resources folder.
+All necessary data sets with associated accession numbers are also listed in individual xlsx-sheets in file [**data-accessions.xlsx**](resources/data-accessions.xlsx) located in the resources folder.
 
 # Computational Requirements
 The following computational resources are recommended to execute the whole script
@@ -79,7 +79,7 @@ The following computational resources are recommended to execute the whole scrip
 * File **/results/chipseq.peaks.RDS** contains a genomic ranges object of protein coding transcripts bound by specific proteins on the DNA
 * File **/results/eclipseq.peaks.RDS** contains a genomic ranges object of protein coding transcripts bound by specific proteins on the RNA
 * File **/results/rn7sk.binders.RDS** contains a genomic ranges object of 7SK transcript variants bound by proteins for each cell line idenfied from eCLIP-seq data
-* File **/results/traveling_ratios.RDS** contains a genomic ranges object with pausing indices/traveling ratios for protein coding transcripts of each cell line
+* File **/results/traveling_ratio.RDS** contains a genomic ranges object with pausing indices/traveling ratios for protein coding transcripts of each cell line
 
 # R Session Info
 ![R Session info](https://user-images.githubusercontent.com/15715191/137335979-478dca86-5ec5-475c-bd58-79644c9213b7.png)
