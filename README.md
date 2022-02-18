@@ -78,7 +78,7 @@ The following computational resources are recommended to execute the whole scrip
 * File **/results/Predictions/model_evaluation/model.training.results.RDS** contains all model results (incl. model performance table) obtained by training XGB tree models
 * File **/results/chipseq.peaks.RDS** contains a genomic ranges object of protein coding transcripts bound by specific proteins on the DNA
 * File **/results/eclipseq.peaks.RDS** contains a genomic ranges object of protein coding transcripts bound by specific proteins on the RNA
-* File **/results/rn7sk.binders.RDS** contains a genomic ranges object of 7SK transcript variants bound by proteins for each cell line idenfied from eCLIP-seq data
+* File **/results/rn7sk.binders.RDS** contains a genomic ranges object of 7SK transcript variants bound by proteins for each cell line identified from eCLIP-seq data
 * File **/results/traveling_ratio.RDS** contains a genomic ranges object with pausing indices/traveling ratios for protein coding transcripts of each cell line
 
 # R Session Info
